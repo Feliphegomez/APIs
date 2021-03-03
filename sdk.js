@@ -153,6 +153,20 @@ class ClassSDK {
 		
 		SDK.read('me', '', {
 		}, (a) => {
+			switch(a.status){
+				case 200:
+					responseEnd.status = 'connected';
+					break;
+				case 401:
+					responseEnd.status = 'not_connected';
+					break;
+				case 403:
+					responseEnd.status = 'not_authorized';
+					break;
+				default:
+					responseEnd.status = 'unknown';
+					break;
+			}
 			if(a.status==200){
 				SDK.read('users', a.response.id,  {
 					join: [
