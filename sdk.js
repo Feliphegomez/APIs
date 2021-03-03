@@ -18,7 +18,7 @@ class ClassSDK {
 	}
 	
 	/*
-		PACMEC.init({
+		SDK.init({
 			appId      : '...',
 			token      : '...',
 		});
@@ -41,17 +41,17 @@ class ClassSDK {
 		console.log('login');
 		let divModal = document.createElement("div");
 		divModal.id = "id01";
-		divModal.className = "pacmec-modal";
+		divModal.className = "sdk-modal";
 		
 		let divModalContent = document.createElement("div");
-		divModalContent.className = "pacmec-modal-content pacmec-animate-zoom pacmec-card-4";
+		divModalContent.className = "sdk-modal-content sdk-animate-zoom sdk-card-4";
 
 		let divModalHeader = document.createElement("header");
-		divModalHeader.className = "pacmec-container pacmec-blue";
+		divModalHeader.className = "sdk-container sdk-blue";
 		
 		let btnClose = document.createElement("span");
 		btnClose.innerHTML = "&times;";
-		btnClose.className = "pacmec-button pacmec-display-topright";
+		btnClose.className = "sdk-button sdk-display-topright";
 		btnClose.onclick = function(){
 			document.getElementById('id01').style.display='none'
 		};
@@ -64,7 +64,7 @@ class ClassSDK {
 		divModalContent.appendChild(divModalHeader);
 		
 		let divModalContainer = document.createElement("form");
-		divModalContainer.className = "pacmec-container";
+		divModalContainer.className = "sdk-container";
 		divModalContainer.action = 'javascript: return false;';
 			
 		
@@ -79,7 +79,7 @@ class ClassSDK {
 		usernameLabel.innerHTML = '<b>Usuario</b>';
 		
 		let usernameInput = document.createElement("input");
-		usernameInput.className = 'pacmec-input pacmec-border pacmec-margin-bottom';
+		usernameInput.className = 'sdk-input sdk-border sdk-margin-bottom';
 		usernameInput.type = 'text';
 		usernameInput.placeholder = 'Usuario';
 		usernameInput.required = true;
@@ -89,14 +89,14 @@ class ClassSDK {
 		passLabel.innerHTML = '<b>Contraseña</b>';
 		
 		let passInput = document.createElement("input");
-		passInput.className = 'pacmec-input pacmec-border';
+		passInput.className = 'sdk-input sdk-border';
 		passInput.type = 'password';
 		passInput.placeholder = 'Contraseña';
 		passInput.required = true;
 		passInput.name = 'password';
 		
 		let btnSubmit = document.createElement("button");
-		btnSubmit.className = 'pacmec-button pacmec-block pacmec-green pacmec-section pacmec-padding';
+		btnSubmit.className = 'sdk-button sdk-block sdk-green sdk-section sdk-padding';
 		btnSubmit.type = 'submit';
 		btnSubmit.innerHTML = 'Iniciar sesion';
 		
@@ -157,10 +157,10 @@ class ClassSDK {
 			wallets: null,
 		};
 		
-		PACMEC.read('me', '', {
+		SDK.read('me', '', {
 		}, (a) => {
 			if(a.status==200){
-				PACMEC.read('users', a.response.id,  {
+				SDK.read('users', a.response.id,  {
 					join: [
 						'affiliates,memberships,benefits',
 						'beneficiaries',
@@ -218,7 +218,7 @@ class ClassSDK {
 		}, '/');
 		
 		/*
-		PACMEC.read('me', re.response.id, {
+		SDK.read('me', re.response.id, {
 			
 		}, (a) => {
 			let r = {
@@ -228,7 +228,7 @@ class ClassSDK {
 			
 			if(a.response.id){
 				console.log('UserId: ', a.response.id);
-				PACMEC.read('users', a.response.id,  {}, (b)=>{
+				SDK.read('users', a.response.id,  {}, (b)=>{
 					
 				});
 			}
