@@ -18,10 +18,7 @@ class ClassSDK {
 	}
 	
 	/*
-		SDK.init({
-			appId      : '...',
-			token      : '...',
-		});
+		SDK.init({ .... });
 	*/
 	init(args){
 		console.log('init');
@@ -144,7 +141,6 @@ class ClassSDK {
 	logout(cb){
 		this.create("logout", {}, cb, '/');
 		location.reload();
-		//this.getLoginStatus(cb);
 	}
 	
 	getLoginStatus(cb){
@@ -153,8 +149,6 @@ class ClassSDK {
 			status: null,
 			authResponse: {},
 			notifications: [],
-			membership: null,
-			wallets: null,
 		};
 		
 		SDK.read('me', '', {
@@ -162,9 +156,6 @@ class ClassSDK {
 			if(a.status==200){
 				SDK.read('users', a.response.id,  {
 					join: [
-						'affiliates,memberships,benefits',
-						'beneficiaries',
-						'purses,wallets',
 						'notifications',
 					],
 				}, (b)=>{
@@ -177,9 +168,6 @@ class ClassSDK {
 							b.response.update    = b.response.update !== null ? b.response.update.split(',') : [];
 							b.response.delete    = b.response.delete !== null ? b.response.delete.split(',') : [];
 							b.response.increment = b.response.increment !== null ? b.response.increment.split(',') : [];
-							
-							responseEnd.membership = b.response.affiliates.length>0 ? b.response.affiliates[0] : null;
-							responseEnd.wallets = b.response.purses.length>0 ? b.response.purses : [];
 							
 							b.response.notifications.forEach(z=>{
 								z.data = JSON.parse(z.data);
@@ -195,9 +183,6 @@ class ClassSDK {
 									"content": (z.data.content !== undefined) ? z.data.content : null
 								});
 							});
-							
-							// responseEnd.notifications = b.response.notifications.length>0 ? b.response.notifications : [];
-							
 							responseEnd.authResponse = b.response;
 							break;
 						case 401:
@@ -216,52 +201,6 @@ class ClassSDK {
 				cb(responseEnd);
 			}
 		}, '/');
-		
-		/*
-		SDK.read('me', re.response.id, {
-			
-		}, (a) => {
-			let r = {
-				status: null,
-				authResponse: {},
-			};
-			
-			if(a.response.id){
-				console.log('UserId: ', a.response.id);
-				SDK.read('users', a.response.id,  {}, (b)=>{
-					
-				});
-			}
-			
-			
-			
-			switch(re.status){
-				case 200:
-					r.status = 'connected';
-					re.data.list = re.data.list.split(',');
-					re.data.create = re.data.create.split(',');
-					re.data.read = re.data.read.split(',');
-					re.data.update = re.data.update.split(',');
-					re.data.delete = re.data.delete.split(',');
-					re.data.increment = re.data.increment.split(',');
-					
-					
-					r.authResponse = re.data;
-					break;
-				case 401:
-					r.status = 'not_connected';
-					break;
-				case 403:
-					r.status = 'not_authorized';
-					break;
-				default:
-					r.status = 'unknown';
-					break;
-			}
-			call(r);
-		}, '/');
-		
-		*/
 	}
 	
 	/*
